@@ -1,0 +1,49 @@
+.contact {
+  margin: 2.5rem;
+  padding: 2.5rem 5rem;
+  background-color: var(--color-dark--1);
+  min-height: calc(100vh - 5rem);
+  color: var(--color-light--1);
+}
+
+.contactSection {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  margin-top: 6rem;
+}
+
+.contactInfo {
+  color: var(--color-light--1);
+}
+
+.contactInfo h2 {
+  font-size: 3.5rem;
+  line-height: 1.3;
+  margin-bottom: 2rem;
+  color: var(--color-brand--1);
+}
+
+.contactInfo p {
+  font-size: 1.6rem;
+  margin-bottom: 2rem;
+  color: var(--color-light--1);
+}
+
+.contactDetails {
+  list-style-type: none;
+  padding: 0;
+  font-size: 1.6rem;
+}
+
+.contactDetails li {
+  margin-bottom: 1rem;
+  color: var(--color-light--2);
+}
+
+.contactImage {
+  width: 100%;
+  border-radius: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

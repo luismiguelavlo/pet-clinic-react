@@ -1,0 +1,62 @@
+{
+  "appointments": [
+    {
+      "id": 1,
+      "name": "Luna",
+      "date": "2024-09-05",
+      "reason": "Vacunación anual",
+      "pet_type": "Dog",
+      "medic": "Dr. Carlos Pérez"
+    },
+    {
+      "id": 2,
+      "name": "Milo",
+      "date": "2024-09-10",
+      "reason": "Chequeo general",
+      "pet_type": "Cat",
+      "medic": "Dra. Ana Gómez"
+    },
+    {
+      "id": 3,
+      "name": "Bella",
+      "date": "2024-09-15",
+      "reason": "Problema digestivo",
+      "pet_type": "Rabbit",
+      "medic": "Dr. Jorge Sánchez"
+    },
+    {
+      "id": 4,
+      "name": "Rocky",
+      "date": "2024-09-20",
+      "reason": "Consulta de seguimiento",
+      "pet_type": "Dog",
+      "medic": "Dra. María Fernández"
+    },
+    {
+      "id": 5,
+      "name": "Lola",
+      "date": "2024-09-25",
+      "reason": "Problema en la piel",
+      "pet_type": "Hamster",
+      "medic": "Dr. Juan López"
+    }
+  ],
+  "appointments-done": [
+    {
+      "id": 1,
+      "name": "Atena",
+      "date": "2024-09-05",
+      "reason": "Vacunación anual",
+      "pet_type": "Perro",
+      "medic": "Dr. Carlos Pérez"
+    },
+    {
+      "id": 2,
+      "name": "Pelusa",
+      "date": "2024-09-10",
+      "reason": "Chequeo general",
+      "pet_type": "Gato",
+      "medic": "Dra. Ana Gómez"
+    }
+  ]
+}

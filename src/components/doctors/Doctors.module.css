@@ -1,0 +1,56 @@
+.doctorsContainer {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+}
+
+.heading {
+  font-size: 2rem;
+  color: var(--color-brand--1);
+  margin-bottom: 1rem;
+}
+
+.cardContainer {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap; /* Permite que las tarjetas se ajusten a la siguiente fila */
+  gap: 2rem;
+  justify-content: center;
+  width: 100%;
+}
+
+.card {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  flex: 1 1 calc(25% - 2rem); /* Permite que cada tarjeta ocupe el 25% del contenedor menos el espacio para el gap */
+  max-width: calc(25% - 2rem); /* Ajusta el ancho máximo de las tarjetas */
+  box-sizing: border-box; /* Incluye padding y border en el cálculo del ancho */
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+/* Opcional: Ajusta el tamaño de las tarjetas en pantallas más pequeñas */
+@media (max-width: 1200px) {
+  .card {
+    flex: 1 1 calc(33.33% - 2rem); /* Permite hasta 3 tarjetas en la fila */
+    max-width: calc(33.33% - 2rem);
+  }
+}
+
+@media (max-width: 800px) {
+  .card {
+    flex: 1 1 calc(50% - 2rem); /* Permite hasta 2 tarjetas en la fila */
+    max-width: calc(50% - 2rem);
+  }
+}
+
+@media (max-width: 500px) {
+  .card {
+    flex: 1 1 calc(100% - 2rem); /* Permite solo 1 tarjeta en la fila */
+    max-width: calc(100% - 2rem);
+  }
+}
