@@ -1,0 +1,29 @@
+.snow-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none; /* Para que los copos no interfieran con el mouse */
+  z-index: 9999;
+  overflow: hidden; /* Asegura que nada se salga del contenedor */
+}
+
+
+.snowflake {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-image: url('/snowflakes.png'); /* Ruta de la imagen de copo de nieve */
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.8;
+  animation: fall 3s linear infinite;
+}
+
+@keyframes fall {
+  to {
+      transform: translateY(100vh);
+      opacity: 0;
+  }
+}

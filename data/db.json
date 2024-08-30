@@ -1,7 +1,7 @@
 {
   "appointments": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Luna",
       "date": "2024-09-05",
       "reason": "Vacunación anual",
@@ -9,7 +9,7 @@
       "medic": "Dr. Carlos Pérez"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Milo",
       "date": "2024-09-10",
       "reason": "Chequeo general",
@@ -17,7 +17,7 @@
       "medic": "Dra. Ana Gómez"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Bella",
       "date": "2024-09-15",
       "reason": "Problema digestivo",
@@ -25,7 +25,7 @@
       "medic": "Dr. Jorge Sánchez"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Rocky",
       "date": "2024-09-20",
       "reason": "Consulta de seguimiento",
@@ -33,17 +33,17 @@
       "medic": "Dra. María Fernández"
     },
     {
-      "id": 5,
-      "name": "Lola",
+      "id": "5",
+      "name": "Lolita",
       "date": "2024-09-25",
       "reason": "Problema en la piel",
-      "pet_type": "Hamster",
+      "pet_type": "Parrot",
       "medic": "Dr. Juan López"
     }
   ],
   "appointments-done": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Atena",
       "date": "2024-09-05",
       "reason": "Vacunación anual",
@@ -51,7 +51,7 @@
       "medic": "Dr. Carlos Pérez"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Pelusa",
       "date": "2024-09-10",
       "reason": "Chequeo general",

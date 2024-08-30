@@ -1,5 +1,14 @@
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import styles from "./Appointment.module.css";
+import { useAppointments } from '../../context/AppointmentContext';
+import { useEffect, useState } from 'react';
+import Spinner from '../spinner/Spinner';
+import { BackButton } from '../button/BackButton';
+import { Button } from '../button/Button';
+import { Modal } from '../modal/Modal';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
 
 const formatDate = (date) =>
   new Intl.DateTimeFormat("en", {
@@ -9,58 +18,119 @@ const formatDate = (date) =>
     weekday: "long",
   }).format(new Date(date));
 
+const schema = z.object({
+  name: z.string().min(1, { message: "Pet name is required" }),
+  reason: z.string().min(1, { message: "Reason for consultation is required" }),
+});
+
 export const Appointment = () => {
-  const { id } = useParams()
-  const [searchParams, setSearchParams] = useSearchParams()
-  const medic = decodeURIComponent(searchParams.get('medic'))
-  const pet_type = decodeURIComponent(searchParams.get('pet_type'))
-  // TEMP DATA
-  const currentCity = {
-    cityName: "Lisbon",
-    emoji: "🇵🇹",
-    date: "2027-10-31T15:59:59.138Z",
-    notes: "My favorite city so far!",
+  const { id } = useParams();
+  const { getAppointment, currentAppointment, isLoading, startUpdateAppointment } = useAppointments();
+  const { name, date, reason } = currentAppointment;
+  const navigate = useNavigate();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      name: name || '',
+      reason: reason || '',
+    },
+  });
+
+  useEffect(() => {
+    if (currentAppointment) {
+      reset({
+        name: name || '',
+        reason: reason || '',
+      });
+    }
+  }, [currentAppointment, reset]);
+
+  useEffect(() => {
+    getAppointment(id);
+  }, [id]);
+
+  const onSubmit = async(data) => {
+    await startUpdateAppointment(id, data);
+    navigate('/app')
+    // Aquí puedes manejar la actualización del turno
+    closeModal();
   };
 
-  const { cityName, emoji, date, notes } = currentCity;
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
-  return <h1>Appointment</h1>
-  // return (
-  //   <div className={styles.appointment}>
-  //     <div className={styles.row}>
-  //       <h6>City name</h6>
-  //       <h3>
-  //         <span>{emoji}</span> {cityName}
-  //       </h3>
-  //     </div>
+  if (isLoading) return <Spinner />;
 
-  //     <div className={styles.row}>
-  //       <h6>You went to {cityName} on</h6>
-  //       <p>{formatDate(date || null)}</p>
-  //     </div>
+  return (
+    <div className={styles.appointment}>
+      <div className={styles.row}>
+        <h6>Pet name</h6>
+        <h3>{name}</h3>
+      </div>
 
-  //     {notes && (
-  //       <div className={styles.row}>
-  //         <h6>Your notes</h6>
-  //         <p>{notes}</p>
-  //       </div>
-  //     )}
+      <div className={styles.row}>
+        <h6>Your appointment is scheduled for</h6>
+        <p>{formatDate(date || null)}</p>
+      </div>
 
-  //     <div className={styles.row}>
-  //       <h6>Learn more</h6>
-  //       <a
-  //         href={`https://en.wikipedia.org/wiki/${cityName}`}
-  //         target="_blank"
-  //         rel="noreferrer"
-  //       >
-  //         Check out {cityName} on Wikipedia &rarr;
-  //       </a>
-  //     </div>
+      {reason && (
+        <div className={styles.row}>
+          <h6>Reason for consultation</h6>
+          <p>{reason}</p>
+        </div>
+      )}
 
-  //     <div>
-        
-  //     </div>
-  //   </div>
-  // );
-}
+      <div className={styles.row}>
+        <Button type="primary" onClick={openModal}>Edit</Button>
+        <BackButton />
+      </div>
 
+      <Modal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        background="#2c3e50"
+        size={{ width: '500px', height: '400px' }}
+        title="Update your appointment"
+      >
+        <Modal.Body>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div className={styles.formGroup}>
+              <label htmlFor="name">Pet Name</label>
+              <input
+                id="name"
+                placeholder="Enter your pet name"
+                {...register('name')}
+              />
+              {errors.name && (
+                <p className={styles.error}>{errors.name.message}</p>
+              )}
+            </div>
+
+            <div className={styles.formGroup}>
+              <label htmlFor="reason">Reason for Consultation</label>
+              <input
+                id="reason"
+                placeholder="Enter the reason"
+                {...register('reason')}
+              />
+              {errors.reason && (
+                <p className={styles.error}>{errors.reason.message}</p>
+              )}
+            </div>
+
+            <br/>
+            <Button type="primary" htmlType="submit">Update</Button>
+          </form>
+        </Modal.Body>
+      </Modal>
+    </div>
+  );
+};

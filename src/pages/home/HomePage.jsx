@@ -7,7 +7,6 @@ export const Homepage = () => {
   return (
     <main className={styles.homepage}>
       <PageNav />
-
       <section>
         <h1>
           We care for your pets.

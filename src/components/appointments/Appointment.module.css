@@ -45,3 +45,34 @@
   font-size: 1.6rem;
   color: var(--color-brand--1);
 }
+
+.formGroup {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.formGroup label {
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #ecf0f1;
+}
+
+.formGroup input {
+  padding: 10px;
+  border: 1px solid #bdc3c7;
+  border-radius: 4px;
+  background-color: #34495e;
+  color: #ecf0f1;
+  font-size: 16px;
+}
+
+.formGroup input::placeholder {
+  color: #95a5a6;
+}
+
+.error {
+  color: #e74c3c;
+  font-size: 14px;
+  margin-top: 5px;
+}

@@ -3,7 +3,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import styles from "./Form.module.css";
 import { Button } from '../button/Button';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { BackButton } from '../button/BackButton';
+import { useAppointments } from '../../context/AppointmentContext';
 
 // Esquema de validación usando Zod
 const schema = z.object({
@@ -13,7 +15,11 @@ const schema = z.object({
 });
 
 export const Form = () => {
-  const navigate = useNavigate()
+  const [searchParams, setSearchParams] = useSearchParams();
+  const medicName = decodeURIComponent(searchParams.get('medic'));
+  const pet_type = decodeURIComponent(searchParams.get('pet_type'));
+  const { createAppointment, isLoading } = useAppointments();
+  const navigate = useNavigate();
 
   const {
     register,
@@ -30,16 +36,32 @@ export const Form = () => {
   });
 
   // Función para manejar el envío del formulario
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     // Aquí podrías hacer algo con los datos del formulario
-    console.log(data);
+    if(!medicName){
+      alert("Please select a doctor")
+      return
+    }
+
+    if(!pet_type){
+      alert("Please select a pet type")
+      return
+    } 
+
+    const dataToSend = {
+      ...data,
+      pet_type: pet_type,
+      medic: medicName,
+    };
     
-    // Reiniciar el formulario después del envío exitoso
+    await createAppointment(dataToSend)
     reset();
+    navigate("/app")
+    
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+    <form className={`${styles.form} ${isLoading ? styles.loading : ''}`} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.row}>
         <label htmlFor="name">Name</label>
         <input
@@ -72,12 +94,7 @@ export const Form = () => {
         <Button type="primary">
           Add
         </Button>
-        <Button type="back" onClick={(e) => {
-          e.preventDefault()
-          navigate(-1)
-        }}>
-        &larr; Back
-        </Button>
+        <BackButton />
       </div>
     </form>
   );
